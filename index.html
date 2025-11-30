@@ -1,39 +1,553 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru-RU">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gonzo Cybersport - Главная</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Gonzo Cybersport — киберспортивный клуб в Москве - премиальный компьютерный клуб</title>
+    <meta name="description" content="Gonzo Cybersport — современное киберспортивное пространство в Москве с профессиональными игровыми зонами, VIP-комнатами, стрим-студией и турнирами на регулярной основе.">
+    
+    <!-- Подключение шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    
+    <!-- Подключение Swiper для слайдера -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #FF4F15;
+            --dark-color: #000;
+            --light-color: #fff;
+            --gray-color: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Manrope', sans-serif;
+            color: var(--light-color);
+            background-color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: 700;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(90deg, rgba(255, 79, 21, 1) 0%, rgba(153, 47, 13, 1) 100%);
+            color: var(--light-color);
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 79, 21, 0.3);
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(0, 0, 0, 0.9);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+        
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 50px;
+        }
+        
+        .nav-menu {
+            display: flex;
+        }
+        
+        .nav-menu li {
+            margin: 0 15px;
+        }
+        
+        .nav-menu a {
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .phone {
+            margin-right: 20px;
+            font-weight: 600;
+        }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--light-color);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 150px 0 80px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/hero-bg.jpg') no-repeat center center/cover;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-btn {
+            font-size: 20px;
+            padding: 18px 40px;
+        }
+        
+        /* Gallery Section */
+        .gallery {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
+        
+        .swiper {
+            width: 100%;
+            height: 500px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+        }
+        
+        .swiper-button-next, .swiper-button-prev {
+            color: var(--primary-color);
+        }
+        
+        .swiper-pagination-bullet-active {
+            background-color: var(--primary-color);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: rgba(255, 79, 21, 0.05);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #111;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Адаптация для мобильных устройств */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                padding: 20px 0;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .nav-menu li {
+                margin: 10px 0;
+                text-align: center;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .header-actions .btn {
+                display: none;
+            }
+            
+            .phone {
+                margin-right: 15px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: 120px 0 60px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .swiper {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-btn {
+                font-size: 16px;
+                padding: 15px 30px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
-        <nav>
-            <div class="logo">Gonzo Cybersport</div>
-            <ul>
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="spaces/index.html">Игровые пространства</a></li>
-                <li><a href="pricing/index.html">Тарифы</a></li>
-                <li><a href="kitchen/index.html">Кухня</a></li>
-                <li><a href="events/index.html">Мероприятия</a></li>
-                <li><a href="blog/index.html">Блог</a></li>
-                <li><a href="faq/index.html">FAQ</a></li>
-                <li><a href="contacts/index.html">Контакты</a></li>
-            </ul>
-        </nav>
+        <div class="container">
+            <div class="header-inner">
+                <a href="index.html" class="logo">
+                    <img src="https://gonzocybersport.ru/wp-content/uploads/2025/04/logo.svg" alt="Gonzo Cybersport" class="logo">
+                </a>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="spaces/index.html">Игровые пространства</a></li>
+                    <li><a href="pricing/index.html">Тарифы</a></li>
+                    <li><a href="kitchen/index.html">Кухня</a></li>
+                    <li><a href="blog/index.html">Блог</a></li>
+                    <li><a href="contacts/index.html">Контакты</a></li>
+                </ul>
+                
+                <div class="header-actions">
+                    <a href="tel:+79398888893" class="phone">+7-939-888-88-93</a>
+                    <a href="#booking" class="btn">Забронировать место</a>
+                </div>
+                
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <h1>Добро пожаловать в Gonzo Cybersport</h1>
-            <p>Лучшее киберспортивное пространство города</p>
-        </section>
-    </main>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>GONZO CYBERSPORT</h1>
+            <p>Премиальное киберспортивное пространство в Москве для настоящих геймеров. Профессиональное оборудование, уникальная атмосфера и сервис высшего уровня.</p>
+            <a href="#booking" class="btn hero-btn">Забронировать место</a>
+        </div>
+    </section>
 
+    <!-- Gallery Section -->
+    <section class="gallery">
+        <div class="container">
+            <h2 class="section-title">GONZO Атмосфера</h2>
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" style="background-image: url('https://gonzocybersport.ru/wp-content/uploads/2025/04/ami05050-uluchsheno-um.-shuma.jpg')"></div>
+                    <div class="swiper-slide" style="background-image: url('https://gonzocybersport.ru/wp-content/uploads/2025/04/ami05030-uluchsheno-um.-shuma.jpg')"></div>
+                    <div class="swiper-slide" style="background-image: url('https://gonzocybersport.ru/wp-content/uploads/2025/04/ami05976.jpg')"></div>
+                    <div class="swiper-slide" style="background-image: url('https://gonzocybersport.ru/wp-content/uploads/2025/04/ami05097-uluchsheno-um.-shuma.jpg')"></div>
+                    <div class="swiper-slide" style="background-image: url('https://gonzocybersport.ru/wp-content/uploads/2025/04/ami04943.jpg')"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Почему выбирают GONZO</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Мощное оборудование</h3>
+                    <p>Профессиональные игровые компьютеры с топовыми компонентами для максимальной производительности.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎮</div>
+                    <h3>Разнообразие зон</h3>
+                    <p>STANDART ZONE, PREMIUM, BOOTCAMP, STREAM и игровые приставки - выбор на любой вкус.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🍹</div>
+                    <h3>Премиальная кухня</h3>
+                    <p>Авторские блюда и напитки, созданные специально для геймеров.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Турниры и события</h3>
+                    <p>Регулярные киберспортивные турниры и мероприятия для сообщества.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="booking" style="padding: 80px 0; text-align: center;">
+        <div class="container">
+            <h2 class="section-title">Готовы погрузиться в мир GONZO?</h2>
+            <p style="margin-bottom: 30px; font-size: 1.2rem;">Забронируйте место прямо сейчас и получите незабываемый игровой опыт</p>
+            <a href="#" class="btn hero-btn">Забронировать место</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Gonzo Cybersport. Все права защищены.</p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>GONZO CYBERSPORT</h3>
+                    <p>Премиальное киберспортивное пространство в Москве. Ваш лучший тиммейт в мире гейминга.</p>
+                    <div class="social-links">
+                        <a href="https://t.me/gonzo_cyber_bot" target="_blank">TG</a>
+                        <a href="https://vk.com/gonzocybersport" target="_blank">VK</a>
+                        <a href="https://wa.me/+79855930015" target="_blank">WA</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Разделы</h3>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="spaces/index.html">Игровые пространства</a></li>
+                        <li><a href="pricing/index.html">Тарифы</a></li>
+                        <li><a href="kitchen/index.html">Кухня</a></li>
+                        <li><a href="blog/index.html">Блог</a></li>
+                        <li><a href="contacts/index.html">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li>Москва, ул. Можайское шоссе, д. 34А</li>
+                        <li><a href="tel:+74951615984">+7 (495) 161-59-84</a></li>
+                        <li>Ежедневно: 00:00 - 23:59</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Gonzo Cybersport. Все права защищены.</p>
+            </div>
+        </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <!-- Подключение Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <script>
+        // Инициализация Swiper
+        const swiper = new Swiper('.swiper', {
+            loop: true,
+            autoplay: {
+                delay: 5000,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+        
+        // Мобильное меню
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+        
+        // Закрытие меню при клике на ссылку
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+            });
+        });
+        
+        // Яндекс Метрика (пример кода, замените на свой)
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        
+        ym(101402689, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+        });
+    </script>
 </body>
 </html>
